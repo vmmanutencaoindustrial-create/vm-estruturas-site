@@ -5569,21 +5569,28 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   window.__vmGetState = function() { return { ...state, calc: calc() }; };
 
   function update() {
-    document.getElementById('lblComp').textContent = state.comp + ' m';
-    document.getElementById('lblLarg').textContent = state.larg + ' m';
-    document.getElementById('lblPe').textContent = state.pe + ' m';
-    document.getElementById('vizSize').textContent = `${state.comp} × ${state.larg} × ${state.pe} m`;
+    const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+    setText('lblComp', state.comp + ' m');
+    setText('lblLarg', state.larg + ' m');
+    setText('lblPe', state.pe + ' m');
+    setText('vizSize', `${state.comp} × ${state.larg} × ${state.pe} m`);
     const r = calc();
-    document.getElementById('outArea').textContent = r.area.toLocaleString('pt-BR') + ' m²';
-    document.getElementById('outAreaSub').textContent = `${state.comp} × ${state.larg} m`;
-    document.getElementById('outAco').textContent = r.peso.toLocaleString('pt-BR') + ' t';
-    document.getElementById('outPrazo').textContent = r.prazo + ' dias';
+    setText('outArea', r.area.toLocaleString('pt-BR') + ' m²');
+    setText('outAreaSub', `${state.comp} × ${state.larg} m`);
+    setText('outAco', r.peso.toLocaleString('pt-BR') + ' t');
+    setText('outPrazo', r.prazo + ' dias');
     const preco = document.getElementById('outPreco');
-    preco.textContent = brl(r.total);
-    preco.classList.remove('flash'); void preco.offsetWidth; preco.classList.add('flash');
-    renderGalpao();
+    if (preco) {
+      preco.textContent = brl(r.total);
+      preco.classList.remove('flash'); void preco.offsetWidth; preco.classList.add('flash');
+    }
+    if (typeof renderGalpao === 'function') {
+      try { renderGalpao(); } catch (e) { console.warn('[VM] renderGalpao:', e.message); }
+    }
     // Atualiza 3D inline em tempo real
-    if (window.__vmRebuildInline) window.__vmRebuildInline(state);
+    if (window.__vmRebuildInline) {
+      try { window.__vmRebuildInline(state); } catch (e) { console.warn('[VM] rebuildInline:', e.message); }
+    }
   }
 
   document.getElementById('comp').addEventListener('input', e => { state.comp = +e.target.value; update(); });
