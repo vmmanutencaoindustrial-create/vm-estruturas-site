@@ -2890,21 +2890,50 @@
     color: var(--fg); font-weight: 500; letter-spacing: 0.04em;
   }
   .footer-expanded .foot-social {
-    display: flex; gap: 10px; align-items: center;
-    margin-top: 4px;
+    display: flex; gap: 12px; align-items: center;
+    margin-top: 6px;
   }
   .footer-expanded .foot-social a {
-    width: 40px; height: 40px;
+    width: 48px; height: 48px;
     display: inline-flex; align-items: center; justify-content: center;
-    background: rgba(255,215,0,0.05);
-    border: 1.5px solid rgba(255,215,0,0.25);
-    color: var(--yellow);
-    transition: background 0.2s, border-color 0.2s, transform 0.15s, color 0.2s;
+    border-radius: 12px;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+    border: none;
+  }
+  .footer-expanded .foot-social a::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 50%);
+    pointer-events: none;
   }
   .footer-expanded .foot-social a:hover {
-    background: var(--yellow); border-color: var(--yellow);
-    color: var(--bg);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .footer-expanded .foot-social a svg {
+    width: 22px; height: 22px;
+    position: relative; z-index: 1;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+  /* Instagram: gradient oficial */
+  .footer-expanded .foot-social a[aria-label="Instagram"] {
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  }
+  /* WhatsApp: verde oficial */
+  .footer-expanded .foot-social a[aria-label="WhatsApp"] {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  }
+  /* E-mail: amarelo VM */
+  .footer-expanded .foot-social a[aria-label="E-mail"] {
+    background: linear-gradient(135deg, #FFD700 0%, #e8c200 100%);
+    color: #0A0A0A;
+  }
+  .footer-expanded .foot-social a[aria-label="E-mail"] svg {
+    filter: none;
   }
   .footer-expanded .foot-title {
     font-family: 'JetBrains Mono', monospace;
@@ -3158,7 +3187,7 @@
       align-items: center;
     }
     /* Redes sociais: já 40×40, aumentar pra 44×44 */
-    .footer-expanded .foot-social a { width: 44px !important; height: 44px !important; }
+    .footer-expanded .foot-social a { width: 48px !important; height: 48px !important; border-radius: 12px !important; }
     /* Navegação rodapé */
     .foot-nav-list a { padding: 8px 0; }
 
@@ -3458,7 +3487,7 @@
     }
 
     /* Touch targets que escaparam no tablet */
-    .footer-expanded .foot-social a { width: 44px !important; height: 44px !important; }
+    .footer-expanded .foot-social a { width: 48px !important; height: 48px !important; border-radius: 12px !important; }
     .foot-legal a { min-height: 36px; padding: 8px 0; display: inline-flex; align-items: center; }
     .footer-expanded .foot-links a { min-width: 44px; padding-right: 10px; }
 
